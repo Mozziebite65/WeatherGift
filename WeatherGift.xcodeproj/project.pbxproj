@@ -13,6 +13,7 @@
 		A8C01653266FD60400782A2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C01652266FD60400782A2D /* Assets.xcassets */; };
 		A8C01656266FD60400782A2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C01654266FD60400782A2D /* LaunchScreen.storyboard */; };
 		A8C01660266FD6F300782A2D /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0165F266FD6F300782A2D /* LocationListViewController.swift */; };
+		A8C01664266FE1E600782A2D /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C01663266FE1E600782A2D /* WeatherLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A8C01655266FD60400782A2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8C01657266FD60400782A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8C0165F266FD6F300782A2D /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
+		A8C01663266FE1E600782A2D /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				A8C01649266FD60300782A2D /* AppDelegate.swift */,
 				A8C0164B266FD60300782A2D /* SceneDelegate.swift */,
 				A8C0165F266FD6F300782A2D /* LocationListViewController.swift */,
+				A8C01663266FE1E600782A2D /* WeatherLocation.swift */,
 				A8C0164F266FD60300782A2D /* Main.storyboard */,
 				A8C01652266FD60400782A2D /* Assets.xcassets */,
 				A8C01654266FD60400782A2D /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C0164A266FD60300782A2D /* AppDelegate.swift in Sources */,
+				A8C01664266FE1E600782A2D /* WeatherLocation.swift in Sources */,
 				A8C01660266FD6F300782A2D /* LocationListViewController.swift in Sources */,
 				A8C0164C266FD60300782A2D /* SceneDelegate.swift in Sources */,
 			);
