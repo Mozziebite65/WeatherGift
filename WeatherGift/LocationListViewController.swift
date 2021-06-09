@@ -7,13 +7,13 @@
 
 import UIKit
 
-var weatherLocations: [WeatherLocation] = []
-
 class LocationListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var editBarButton: UIBarButtonItem!
     @IBOutlet var addBarButton: UIBarButtonItem!
+    
+    var weatherLocations: [WeatherLocation] = []
     
     override func viewDidLoad() {
         
@@ -21,7 +21,7 @@ class LocationListViewController: UIViewController {
         
         weatherLocations = [WeatherLocation(name: "Bangor, Norn Iron", latitude: 0.0, longtitude: 0.0),
                             WeatherLocation(name: "Göttingen, Germany", latitude: 0.0, longtitude: 0.0),
-                            WeatherLocation(name: "Ubud, Bali", latitude: 0.0, longtitude: 0.0)
+                            WeatherLocation(name: "Ubud, Bali", latitude: -6.0, longtitude: 0.0)
         ]
         
         tableView.delegate = self
