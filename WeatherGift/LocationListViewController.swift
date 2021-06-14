@@ -16,19 +16,31 @@ class LocationListViewController: UIViewController {
     
     var weatherLocations: [WeatherLocation] = []
     
+    // Catcher / pitcher variable to hold info about the cell clicked
+    var selectedLocationIndex = 0
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        weatherLocations = [WeatherLocation(name: "Bangor, Norn Iron", latitude: 0.0, longtitude: 0.0),
-                            WeatherLocation(name: "Göttingen, Germany", latitude: 0.0, longtitude: 0.0),
-                            WeatherLocation(name: "Ubud, Bali", latitude: -6.0, longtitude: 0.0)
-        ]
+//        weatherLocations = [WeatherLocation(name: "Bangor, Norn Iron", latitude: 0.0, longtitude: 0.0),
+//                            WeatherLocation(name: "Göttingen, Germany", latitude: 0.0, longtitude: 0.0),
+//                            WeatherLocation(name: "Ubud, Bali", latitude: -6.0, longtitude: 0.0)
+//        ]
         
         tableView.delegate = self
         tableView.dataSource = self
         
     }
+    
+    // Store the selected index path and exit in unwind segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        selectedLocationIndex = tableView.indexPathForSelectedRow!.row
+        
+    }
+    
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -125,13 +137,13 @@ extension LocationListViewController: GMSAutocompleteViewControllerDelegate {
     dismiss(animated: true, completion: nil)
   }
 
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-  }
+  // Turn the network activity indicator on and off again.      // THIS IS DEPRECATED!!!!
+//  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+//    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//  }
+//
+//  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+//    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//  }
 
 }
