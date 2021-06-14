@@ -1,10 +1,10 @@
+
 //
 //  LocationDetailViewController.swift
 //  WeatherGift
 //
 //  Created by Rick Martin on 11/06/2021.
 //
-
 import UIKit
 
 class LocationDetailViewController: UIViewController {
