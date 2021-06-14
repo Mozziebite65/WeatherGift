@@ -32,7 +32,34 @@ class LocationDetailViewController: UIViewController {
             
         }
         
+        loadLocations()
         updateUserInterface()
+        
+    }
+    
+    // Retrieve stored encoded locations
+    func loadLocations() {
+        
+        // Get encoded data
+        guard let encodedData = UserDefaults.standard.data(forKey: "weatherLocations") else {
+            
+            print("⚠️ WARNING: could not load Weather Locations from UserDefaults. This will always happen the first time the app is installed and run, so we can ignore this error...")
+            return
+            
+        }
+        
+        // We have encoded data - get decoder object
+        let decoder = JSONDecoder()
+        
+        // Try to decode the data object to an array
+        if let weatherLocations = try? decoder.decode(Array.self, from: encodedData) as [WeatherLocation] {
+            
+            self.weatherLocations = weatherLocations
+            
+        } else {
+            
+            print("ERROR: Couldn't decode data read from UserDefaults.. 😡")
+        }
         
     }
     
@@ -68,8 +95,6 @@ class LocationDetailViewController: UIViewController {
         weatherLocation = weatherLocations[sourceVC.selectedLocationIndex]
         
         updateUserInterface()
-        //print("The clicked row was \(sourceVC.selectedLocationIndex)")
-        //print(weatherLocations)
         
     }
     

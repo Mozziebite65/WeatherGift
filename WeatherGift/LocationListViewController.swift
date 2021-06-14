@@ -16,7 +16,7 @@ class LocationListViewController: UIViewController {
     
     var weatherLocations: [WeatherLocation] = []
     
-    // Catcher / pitcher variable to hold info about the cell clicked
+    // Catcher / pitcher variable to hold info about the cell clicked which triggers the unwind
     var selectedLocationIndex = 0
     
     
@@ -34,10 +34,31 @@ class LocationListViewController: UIViewController {
         
     }
     
-    // Store the selected index path and exit in unwind segue
+    // Save the locations to a local place on device
+    func saveLocations() {
+        
+        // Get encoder object
+        let encoder = JSONEncoder()
+        
+        // Try to encode the array to a data object
+        if let encodedData = try? encoder.encode(weatherLocations) {
+            
+            // Here, we're not using the Dictionary URL method. Just writing to the UserDefaults ;ocation (easier for non-vital, non-sensitive info..)
+            UserDefaults.standard.set(encodedData, forKey: "weatherLocations")
+            
+        } else {
+            
+            print("ERROR: Saving encodedData didn't work.. 😡")
+        }
+
+    }
+    
+    
+    // Store the selected index path and save the data, and exit in unwind segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         selectedLocationIndex = tableView.indexPathForSelectedRow!.row
+        saveLocations()
         
     }
     

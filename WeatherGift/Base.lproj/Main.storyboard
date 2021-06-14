@@ -76,7 +76,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Fg4-3N-gN0"/>
                                     <barButtonItem image="list.bullet" catalog="system" id="IAv-80-gVq">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="SEp-gz-MrE"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="SEp-gz-MrE"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -110,11 +110,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LocationListViewController" customModule="WeatherGift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiB-E2-oNh">
-                                <rect key="frame" x="0.0" y="504" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <items>
                                     <barButtonItem title="Edit" id="I8Z-Su-5iq">
                                         <connections>
@@ -130,7 +130,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="csH-we-qZY">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="fk2-ta-i2w" detailTextLabel="Nqx-a9-prf" style="IBUITableViewCellStyleSubtitle" id="cQi-Hh-R6I">
