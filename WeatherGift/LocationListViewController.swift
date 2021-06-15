@@ -24,11 +24,6 @@ class LocationListViewController: UIViewController {
         
         super.viewDidLoad()
         
-//        weatherLocations = [WeatherLocation(name: "Bangor, Norn Iron", latitude: 0.0, longtitude: 0.0),
-//                            WeatherLocation(name: "Göttingen, Germany", latitude: 0.0, longtitude: 0.0),
-//                            WeatherLocation(name: "Ubud, Bali", latitude: -6.0, longtitude: 0.0)
-//        ]
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -157,14 +152,5 @@ extension LocationListViewController: GMSAutocompleteViewControllerDelegate {
   func wasCancelled(_ viewController: GMSAutocompleteViewController) {
     dismiss(animated: true, completion: nil)
   }
-
-  // Turn the network activity indicator on and off again.      // THIS IS DEPRECATED!!!!
-//  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//  }
-//
-//  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-//    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//  }
 
 }
