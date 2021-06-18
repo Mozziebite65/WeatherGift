@@ -52,7 +52,7 @@ class PageViewController: UIPageViewController {
             print("ERROR: Couldn't decode data read from UserDefaults.. 😡")
         }
         
-        // Just make sure that the array has something in it..
+        // In case we get to here and there IS a valid data file, but it has nothing in it (shouldn't happen, but...)
         if weatherLocations.isEmpty {
             // TODO: Get User Location for first element in the weatherLocations array
             weatherLocations.append(WeatherLocation(name: "Current Location", latitude: 0.0, longtitude: 0.0))
@@ -86,6 +86,7 @@ extension PageViewController: UIPageViewControllerDelegate, UIPageViewController
             
         }
         
+        // If the above fails...
         return nil
         
     }
@@ -104,6 +105,7 @@ extension PageViewController: UIPageViewControllerDelegate, UIPageViewController
             
         }
         
+        // If the above fails...
         return nil
         
     }

@@ -16,6 +16,8 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     
+    @IBOutlet var pageControl: UIPageControl!
+    
     var weatherLocation: WeatherLocation!
     
     var locationIndex = 0
@@ -35,6 +37,8 @@ class LocationDetailViewController: UIViewController {
         let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
         weatherLocation = pageViewController.weatherLocations[locationIndex]
         
+        // Make the API call for the location (does nothing YET..)
+        weatherLocation.getData()
         
         // Initial placeholder dummy data
         dateLabel.text = ""
@@ -42,6 +46,9 @@ class LocationDetailViewController: UIViewController {
         temperatureLabel.text = "---°"
         summaryLabel.text = "Blah blah blah..."
 
+        pageControl.numberOfPages = pageViewController.weatherLocations.count
+        pageControl.currentPage = locationIndex
+        
     }
     
     
@@ -68,6 +75,30 @@ class LocationDetailViewController: UIViewController {
         let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
         pageViewController.weatherLocations = sourceVC.weatherLocations
         pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: locationIndex)], direction: .forward, animated: false, completion: nil)
+        
+    }
+    
+    @IBAction func pageControlTapped(_ sender: UIPageControl) {
+        
+        let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+        
+        // Make the animation go left to right if we tap on the left side of the page control
+        // The "sender.currentPage" is the screen we're transitioning TO! (confusingly named, I think!)
+        var direction: UIPageViewController.NavigationDirection = .forward
+        
+        if sender.currentPage < locationIndex {
+            direction = .reverse
+        }
+        
+        // And use the "direction" variable as the parameter instead of .forward or .reverse
+        pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: sender.currentPage)], direction: direction, animated: true, completion: nil)
+        
+        // COULD have also just done it like this 🤷🏻‍♂️
+//        if sender.currentPage < locationIndex {
+//            pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: sender.currentPage)], direction: .reverse, animated: true, completion: nil)
+//        } else {
+//            pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: sender.currentPage)], direction: .forward, animated: true, completion: nil)
+//        }
         
     }
     
