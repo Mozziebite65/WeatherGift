@@ -7,6 +7,23 @@
 //
 import UIKit
 
+// The dateFormatter() call is expensive, so we just want to make it once, outside the class
+// Doing this OUTSIDE the class definition creates an instance that persists between creation and destruction of instances of the class itself.
+// We can also set the dateFormat in here, as that will not change.
+private let dateFormatter: DateFormatter = {
+    
+    var dateFormatter = DateFormatter()
+    
+    // Lets format the output to full day, abbreviated month, numeric day and full year
+    // TO GET ANY DATE FORMATS WE WANT, GOOGLE "date format patterns unicode" and go to Unicode.org UTS #35 Dates - Date Format Patterns
+    
+    //dateFormatter.dateFormat = "EEE, MMM d, y H:mm"   // Short day, year, 24hr
+    dateFormatter.dateFormat = "EEEE, MMM d, h:mm aaa"   // Full day, no year, AM / PM
+
+    return dateFormatter
+    
+}()
+
 class LocationDetailViewController: UIViewController {
     
 
@@ -17,8 +34,8 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet var pageControl: UIPageControl!
-    
-    var weatherLocation: WeatherLocation!
+
+    var weatherDetail: WeatherDetail!
     
     var locationIndex = 0
     
@@ -35,20 +52,48 @@ class LocationDetailViewController: UIViewController {
         
         // Get the page View Controller
         let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
-        weatherLocation = pageViewController.weatherLocations[locationIndex]
+        let weatherLocation = pageViewController.weatherLocations[locationIndex]
+        
+        // Initialise the weatherDetail object - it inherits the parameters from WeatherLocation, its parent class
+        weatherDetail = WeatherDetail(name: weatherLocation.name, latitude: weatherLocation.latitude, longtitude: weatherLocation.longtitude)
         
         // Make the API call for the location (does nothing YET..)
-        weatherLocation.getData()
-        
-        // Initial placeholder dummy data
-        dateLabel.text = ""
-        placeLabel.text = weatherLocation.name
-        temperatureLabel.text = "---°"
-        summaryLabel.text = "Blah blah blah..."
+        weatherDetail.getData {
+            
+            // Because this code is in an escaping closure, which runs in the background, we need to move this back to the main thread
+            DispatchQueue.main.async {
+                
+                //self.dateLabel.text = "\(self.weatherDetail.timezone)"
+                self.dateLabel.text = self.getFormattedLocalTime(forTimeZone: self.weatherDetail.timezone, forAPITime: self.weatherDetail.currentTime)
+                self.placeLabel.text = self.weatherDetail.name
+                self.temperatureLabel.text = "\(self.weatherDetail.temperature)°"
+                self.summaryLabel.text = self.weatherDetail.summary
+                self.imageView.image = UIImage(named: self.weatherDetail.dailyIcon)
+                
+            }
+        }
+
 
         pageControl.numberOfPages = pageViewController.weatherLocations.count
         pageControl.currentPage = locationIndex
         
+    }
+    
+    func getFormattedLocalTime(forTimeZone timeZone: String, forAPITime unixTimeString: TimeInterval) -> String {
+        
+        // We could make this fuction do the same in 2 lines, but hey...
+
+        let usableDate = Date(timeIntervalSince1970: unixTimeString)
+
+        // Adjust for time zone
+        let locationTimeZone = TimeZone(identifier: timeZone)
+        
+        // dateFormatter variable created outside class at top...
+        dateFormatter.timeZone = locationTimeZone
+
+        let formattedDate = dateFormatter.string(from: usableDate)
+        return formattedDate
+
     }
     
     
