@@ -94,7 +94,7 @@ class WeatherDetail: WeatherLocation {
         // the API call, taken directly from the openweather site. Note the "exclude" parameter, as we don't want the "minutely" part of the JSON. We can also change the unit of temperature from Kelvin to Celcius.
         let urlString = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longtitude)&exclude=minutely&units=metric&appid=\(APIkeys.openWeatherAPIKey)"
         
-        print("🕸 We are accessing the url \(urlString)")
+        //print("🕸 We are accessing the url \(urlString)")
         
         // Create a URL
         guard let url = URL(string: urlString) else {
@@ -133,22 +133,22 @@ class WeatherDetail: WeatherLocation {
                 self.dayIcon = self.fileNameForIcon(openWeatherIconName: result.current.weather[0].icon)
                 
                 // The properties for the "daily" weather array
-                print("There are \(result.daily.count) days in the daily array...")
+                //print("There are \(result.daily.count) days in the daily array...")
 
                 for index in 0..<result.daily.count {
                     let weekDay = Date(timeIntervalSince1970: result.daily[index].dt)
                     // Adjust for time zone
                     dateFormatter.timeZone = TimeZone(identifier: result.timezone)
                     
-                    let dailyweather = DailyWeather(dailyIcon: self.fileNameForIcon(openWeatherIconName: result.daily[index].weather[0].icon),
+                    let dailyWeather = DailyWeather(dailyIcon: self.fileNameForIcon(openWeatherIconName: result.daily[index].weather[0].icon),
                                                     dailyWeekday: dateFormatter.string(from: weekDay),
                                                     dailySummary: result.daily[index].weather[0].description,
                                                     dailyHigh: Int(result.daily[index].temp.max.rounded()),
                                                     dailyLow: Int(result.daily[index].temp.min.rounded())
                     )
                  
-                    print(dailyweather)
-                    self.dailyWeatherData.append(dailyweather)
+                    //print(dailyWeather)
+                    self.dailyWeatherData.append(dailyWeather)
                     
                 }
                 

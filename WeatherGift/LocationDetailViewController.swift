@@ -18,8 +18,9 @@ private let dateFormatter: DateFormatter = {
     // TO GET ANY DATE FORMATS WE WANT, GOOGLE "date format patterns unicode" and go to Unicode.org UTS #35 Dates - Date Format Patterns
     
     //dateFormatter.dateFormat = "EEE, MMM d, y H:mm"   // Short day, year, 24hr
-    dateFormatter.dateFormat = "EEEE, MMM d, h:mm aaa"   // Full day, no year, AM / PM
-
+    //dateFormatter.dateFormat = "EEEE, MMM d, h:mm aaa"   // Full day, no year, AM / PM
+    dateFormatter.dateFormat = "EEEE, MMM d"   // Full day, Month
+    
     return dateFormatter
     
 }()
@@ -34,15 +35,24 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     
     @IBOutlet var pageControl: UIPageControl!
-
+    
+    @IBOutlet var tableView: UITableView!
+    
     var weatherDetail: WeatherDetail!
-    
+    var rowHeight: CGFloat = 80
     var locationIndex = 0
-    
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // Clear out the dummy data
+        clearUserInterface()
+        
+        // ************ DON'T FORGET THESE LINES!!!!! ***************
+        // Set the data source and delegate - this requires the class to conform to the protocols....
+        tableView.dataSource = self
+        tableView.delegate = self
         
         updateUserInterface()
         
@@ -70,13 +80,27 @@ class LocationDetailViewController: UIViewController {
                 self.summaryLabel.text = self.weatherDetail.summary
                 self.imageView.image = UIImage(named: self.weatherDetail.dayIcon)
                 
+                // Do the daily forecast table
+                self.tableView.reloadData()
+                
             }
-        }
 
+        }
 
         pageControl.numberOfPages = pageViewController.weatherLocations.count
         pageControl.currentPage = locationIndex
         
+    }
+    
+    func clearUserInterface() {
+        
+        // Function to clear out the "placeholder" data in the current weather area
+        dateLabel.text = ""
+        placeLabel.text = ""
+        temperatureLabel.text = ""
+        summaryLabel.text = ""
+        imageView.image = UIImage()
+
     }
     
     func getFormattedLocalTime(forTimeZone timeZone: String, forAPITime unixTimeString: TimeInterval) -> String {
@@ -146,5 +170,45 @@ class LocationDetailViewController: UIViewController {
 //        }
         
     }
+    
+}
+
+//extension LocationDetailViewController: UITableViewDataSource, UITableViewDelegate, DailyTableViewCellDelegate {
+    
+extension LocationDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        return weatherDetail.dailyWeatherData.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // When we changed the cell to a custom cell, we created a new cell subclass so we can access the custom cell elements and their IBoutlets.
+        // So we have to SUBCLASS the class returned from the dequeue call
+        
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DailyTableViewCell     // Force the subclassing
+        
+        // Set the delegate for the custom cell - DON'T NEED THIS FOR THIS PARTICULAR APP! Nothing is actually BEING delegated to the tableview... 
+        //cell.delegate = self
+        
+        // Use the custom cell class property observer to fill in the cell contents, rather than doing it in here
+        cell.dailyWeather = weatherDetail.dailyWeatherData[indexPath.row]
+        
+        // (We could have done it directly, like this.. But using the property observer is better programming.)
+        //cell.dailySummaryView.text = weatherDetail.dailyWeatherData[indexPath.row].dailySummary
+        //cell.dailyWeekdayLabel.text = weatherDetail.dailyWeatherData[indexPath.row].dailyWeekday
+        //etc....
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return rowHeight
+    }
+    
+    
     
 }

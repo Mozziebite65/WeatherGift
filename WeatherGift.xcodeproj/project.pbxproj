@@ -18,6 +18,7 @@
 		A8C01656266FD60400782A2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C01654266FD60400782A2D /* LaunchScreen.storyboard */; };
 		A8C01660266FD6F300782A2D /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C0165F266FD6F300782A2D /* LocationListViewController.swift */; };
 		A8C01664266FE1E600782A2D /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C01663266FE1E600782A2D /* WeatherLocation.swift */; };
+		A8F966FE26823B2300345901 /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F966FD26823B2300345901 /* DailyTableViewCell.swift */; };
 		EF409B1713ED82164D0479FC /* libPods-WeatherGift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DD7C88B7B7403F5C2630A3 /* libPods-WeatherGift.a */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		A8C01657266FD60400782A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8C0165F266FD6F300782A2D /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		A8C01663266FE1E600782A2D /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
+		A8F966FD26823B2300345901 /* DailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		C2DD7C88B7B7403F5C2630A3 /* libPods-WeatherGift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeatherGift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 				A888C02F2678CCE600CF9B56 /* PageViewController.swift */,
 				A80E7BBA2677A3B00002C134 /* LocationDetailViewController.swift */,
 				A8C0165F266FD6F300782A2D /* LocationListViewController.swift */,
+				A8F966FD26823B2300345901 /* DailyTableViewCell.swift */,
 				A8C0164F266FD60300782A2D /* Main.storyboard */,
 				A8C01652266FD60400782A2D /* Assets.xcassets */,
 				A8C01654266FD60400782A2D /* LaunchScreen.storyboard */,
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C0164A266FD60300782A2D /* AppDelegate.swift in Sources */,
+				A8F966FE26823B2300345901 /* DailyTableViewCell.swift in Sources */,
 				A8A6CAE2267CB65000CF4265 /* WeatherDetail.swift in Sources */,
 				A888C0302678CCE600CF9B56 /* PageViewController.swift in Sources */,
 				A8C01664266FE1E600782A2D /* WeatherLocation.swift in Sources */,
