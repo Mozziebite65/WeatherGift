@@ -37,6 +37,7 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet var pageControl: UIPageControl!
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionview: UICollectionView!
     
     var weatherDetail: WeatherDetail!
     var rowHeight: CGFloat = 80
@@ -54,6 +55,9 @@ class LocationDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        collectionview.dataSource = self
+        collectionview.delegate = self
+        
         updateUserInterface()
         
     }
@@ -67,7 +71,7 @@ class LocationDetailViewController: UIViewController {
         // Initialise the weatherDetail object - it inherits the parameters from WeatherLocation, its parent class
         weatherDetail = WeatherDetail(name: weatherLocation.name, latitude: weatherLocation.latitude, longtitude: weatherLocation.longtitude)
         
-        // Make the API call for the location (does nothing YET..)
+        // Make the API call for the location
         weatherDetail.getData {
             
             // Because this code is in an escaping closure, which runs in the background, we need to move this back to the main thread
@@ -82,6 +86,9 @@ class LocationDetailViewController: UIViewController {
                 
                 // Do the daily forecast table
                 self.tableView.reloadData()
+                
+                // and the collection view of hourly data
+                self.collectionview.reloadData()
                 
             }
 
@@ -206,9 +213,30 @@ extension LocationDetailViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return rowHeight
+        
     }
     
+}
+
+extension LocationDetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return weatherDetail.hourlyWeatherData.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // Just the same as the tableView cellForRowAt...
+        let hourlyCell = collectionview.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCollectionViewCell
+        
+        hourlyCell.hourlyWeather = weatherDetail.hourlyWeatherData[indexPath.row]
+        
+        return hourlyCell
+        
+    }
     
 }

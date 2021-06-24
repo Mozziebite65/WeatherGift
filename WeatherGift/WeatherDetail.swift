@@ -84,6 +84,7 @@ class WeatherDetail: WeatherLocation {
         
         var description: String
         var icon: String
+        var id: Int
         
     }
     
@@ -204,13 +205,23 @@ class WeatherDetail: WeatherLocation {
                         // Adjust for time zone
                         hourFormatter.timeZone = TimeZone(identifier: result.timezone)
                      
+                        // For using the same weather icon as the Current area
                         let hourlyWeather = HourlyWeather(hourlyIcon: self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon),
                                                           hour: hourFormatter.string(from: hourlyDate),
                                                           hourlyTemperature: Int(result.hourly[index].temp.rounded())
                         )
                         
+                        // For using the SF weather icons
+//                        let hourlyWeather = HourlyWeather(hourlyIcon: self.systemNameFromID(weatherID: result.hourly[index].weather[0].id, icon: result.hourly[index].weather[0].icon),
+//                                                          hour: hourFormatter.string(from: hourlyDate),
+//                                                          hourlyTemperature: Int(result.hourly[index].temp.rounded())
+//
+//                        )
+                        print("The hour is \(hourlyWeather)")
                         print("Hour: \(hourFormatter.string(from: hourlyDate)), Temperature: \(Int(result.hourly[index].temp.rounded())), Icon: \(self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon))")
+                        
                         self.hourlyWeatherData.append(hourlyWeather)
+                        
                     }
                     
                 }
@@ -266,6 +277,48 @@ class WeatherDetail: WeatherLocation {
         }
         
         return weatherIconName
+        
+    }
+    
+    private func systemNameFromID(weatherID: Int, icon: String) -> String {
+        
+        var sfSymbol: String
+        
+        switch weatherID {
+        
+        case 200...202:
+            sfSymbol = "cloud.bolt.rain"
+        case 210...232:
+            sfSymbol = "cloud.bolt"
+        case 300...399:
+            sfSymbol = "cloud.drizzle"
+        case 500, 501, 520, 521, 531:
+            sfSymbol = "cloud.rain"
+        case 502, 503, 504, 522:
+            sfSymbol = "cloud.heavyrain"
+        case 511, 611...616:
+            sfSymbol = "sleet"
+        case 600...602, 620...622:
+            sfSymbol = "snow"
+        case 701, 711, 741:
+            sfSymbol = "cloud.fog"
+        case 721:
+            sfSymbol = (icon.hasSuffix("d") ? "sun.haze" : "cloud.fog")
+        case 731, 751, 761, 762:
+            sfSymbol = (icon.hasSuffix("d") ? "sun.dust" : "cloud.fog")
+        case 771:
+            sfSymbol = "wind"
+        case 800:
+            sfSymbol = (icon.hasSuffix("d") ? "sun.max" : "moon")
+        case 801, 802:
+            sfSymbol = (icon.hasSuffix("d") ? "cloud.sun" : "cloud.moon")
+        case 803, 804:
+            sfSymbol = "cloud"
+        default:
+            sfSymbol = "questionmark.diamond"
+        }
+        print("Symbol: \(sfSymbol)")
+        return sfSymbol
         
     }
     
