@@ -10,6 +10,8 @@
 		A80E7BB926779BD40002C134 /* APIkeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80E7BB826779BD40002C134 /* APIkeys.swift */; };
 		A80E7BBB2677A3B00002C134 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80E7BBA2677A3B00002C134 /* LocationDetailViewController.swift */; };
 		A888C0302678CCE600CF9B56 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A888C02F2678CCE600CF9B56 /* PageViewController.swift */; };
+		A88B7A3326863BEE00D6248C /* UIViewController+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88B7A3226863BEE00D6248C /* UIViewController+alert.swift */; };
+		A88BDE1E268A234600023F12 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88BDE1D268A234600023F12 /* AboutViewController.swift */; };
 		A88E20252684D7D50038638C /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88E20242684D7D50038638C /* HourlyCollectionViewCell.swift */; };
 		A8A6CAE2267CB65000CF4265 /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A6CAE1267CB65000CF4265 /* WeatherDetail.swift */; };
 		A8C0164A266FD60300782A2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C01649266FD60300782A2D /* AppDelegate.swift */; };
@@ -29,6 +31,8 @@
 		A80E7BB826779BD40002C134 /* APIkeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIkeys.swift; sourceTree = "<group>"; };
 		A80E7BBA2677A3B00002C134 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		A888C02F2678CCE600CF9B56 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		A88B7A3226863BEE00D6248C /* UIViewController+alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+alert.swift"; sourceTree = "<group>"; };
+		A88BDE1D268A234600023F12 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A88E20242684D7D50038638C /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		A8A6CAE1267CB65000CF4265 /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
 		A8C01646266FD60300782A2D /* WeatherGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +96,10 @@
 				A888C02F2678CCE600CF9B56 /* PageViewController.swift */,
 				A80E7BBA2677A3B00002C134 /* LocationDetailViewController.swift */,
 				A8C0165F266FD6F300782A2D /* LocationListViewController.swift */,
+				A88BDE1D268A234600023F12 /* AboutViewController.swift */,
 				A8F966FD26823B2300345901 /* DailyTableViewCell.swift */,
 				A88E20242684D7D50038638C /* HourlyCollectionViewCell.swift */,
+				A88B7A3226863BEE00D6248C /* UIViewController+alert.swift */,
 				A8C0164F266FD60300782A2D /* Main.storyboard */,
 				A8C01652266FD60400782A2D /* Assets.xcassets */,
 				A8C01654266FD60400782A2D /* LaunchScreen.storyboard */,
@@ -232,7 +238,9 @@
 				A888C0302678CCE600CF9B56 /* PageViewController.swift in Sources */,
 				A8C01664266FE1E600782A2D /* WeatherLocation.swift in Sources */,
 				A80E7BB926779BD40002C134 /* APIkeys.swift in Sources */,
+				A88BDE1E268A234600023F12 /* AboutViewController.swift in Sources */,
 				A8C01660266FD6F300782A2D /* LocationListViewController.swift in Sources */,
+				A88B7A3326863BEE00D6248C /* UIViewController+alert.swift in Sources */,
 				A80E7BBB2677A3B00002C134 /* LocationDetailViewController.swift in Sources */,
 				A8C0164C266FD60300782A2D /* SceneDelegate.swift in Sources */,
 				A88E20252684D7D50038638C /* HourlyCollectionViewCell.swift in Sources */,

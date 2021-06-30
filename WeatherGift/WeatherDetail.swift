@@ -206,19 +206,19 @@ class WeatherDetail: WeatherLocation {
                         hourFormatter.timeZone = TimeZone(identifier: result.timezone)
                      
                         // For using the same weather icon as the Current area
-                        let hourlyWeather = HourlyWeather(hourlyIcon: self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon),
-                                                          hour: hourFormatter.string(from: hourlyDate),
-                                                          hourlyTemperature: Int(result.hourly[index].temp.rounded())
-                        )
-                        
-                        // For using the SF weather icons
-//                        let hourlyWeather = HourlyWeather(hourlyIcon: self.systemNameFromID(weatherID: result.hourly[index].weather[0].id, icon: result.hourly[index].weather[0].icon),
+//                        let hourlyWeather = HourlyWeather(hourlyIcon: self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon),
 //                                                          hour: hourFormatter.string(from: hourlyDate),
 //                                                          hourlyTemperature: Int(result.hourly[index].temp.rounded())
-//
 //                        )
-                        print("The hour is \(hourlyWeather)")
-                        print("Hour: \(hourFormatter.string(from: hourlyDate)), Temperature: \(Int(result.hourly[index].temp.rounded())), Icon: \(self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon))")
+                        
+                        // For using the SF weather icons
+                        let hourlyWeather = HourlyWeather(hourlyIcon: self.systemNameFromID(weatherID: result.hourly[index].weather[0].id, icon: result.hourly[index].weather[0].icon),
+                                                          hour: hourFormatter.string(from: hourlyDate),
+                                                          hourlyTemperature: Int(result.hourly[index].temp.rounded())
+
+                        )
+                        //print("The hour is \(hourlyWeather)")
+                        //print("Hour: \(hourFormatter.string(from: hourlyDate)), Temperature: \(Int(result.hourly[index].temp.rounded())), Icon: \(self.fileNameForIcon(openWeatherIconName: result.hourly[index].weather[0].icon))")
                         
                         self.hourlyWeatherData.append(hourlyWeather)
                         
@@ -287,37 +287,37 @@ class WeatherDetail: WeatherLocation {
         switch weatherID {
         
         case 200...202:
-            sfSymbol = "cloud.bolt.rain"
+            sfSymbol = "cloud.bolt.rain.fill"
         case 210...232:
-            sfSymbol = "cloud.bolt"
+            sfSymbol = "cloud.bolt.fill"
         case 300...399:
-            sfSymbol = "cloud.drizzle"
+            sfSymbol = "cloud.drizzle.fill"
         case 500, 501, 520, 521, 531:
-            sfSymbol = "cloud.rain"
+            sfSymbol = "cloud.rain.fill"
         case 502, 503, 504, 522:
-            sfSymbol = "cloud.heavyrain"
+            sfSymbol = "cloud.heavyrain.fill"
         case 511, 611...616:
-            sfSymbol = "sleet"
+            sfSymbol = "snowflake"
         case 600...602, 620...622:
-            sfSymbol = "snow"
+            sfSymbol = "snowflake"
         case 701, 711, 741:
-            sfSymbol = "cloud.fog"
+            sfSymbol = "cloud.fog.fill"
         case 721:
-            sfSymbol = (icon.hasSuffix("d") ? "sun.haze" : "cloud.fog")
+            sfSymbol = (icon.hasSuffix("d") ? "sun.haze.fill" : "cloud.fog.fill")
         case 731, 751, 761, 762:
-            sfSymbol = (icon.hasSuffix("d") ? "sun.dust" : "cloud.fog")
+            sfSymbol = (icon.hasSuffix("d") ? "sun.dust.fill" : "cloud.fog.fill")
         case 771:
             sfSymbol = "wind"
         case 800:
-            sfSymbol = (icon.hasSuffix("d") ? "sun.max" : "moon")
+            sfSymbol = (icon.hasSuffix("d") ? "sun.max.fill" : "moon.fill")
         case 801, 802:
-            sfSymbol = (icon.hasSuffix("d") ? "cloud.sun" : "cloud.moon")
+            sfSymbol = (icon.hasSuffix("d") ? "cloud.sun.fill" : "cloud.moon.fill")
         case 803, 804:
-            sfSymbol = "cloud"
+            sfSymbol = "cloud.fill"
         default:
             sfSymbol = "questionmark.diamond"
         }
-        print("Symbol: \(sfSymbol)")
+ 
         return sfSymbol
         
     }

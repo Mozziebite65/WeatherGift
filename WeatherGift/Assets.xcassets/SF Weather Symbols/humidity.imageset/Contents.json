@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "humidity@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "humidity@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

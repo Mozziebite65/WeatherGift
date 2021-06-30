@@ -34,7 +34,7 @@ class PageViewController: UIPageViewController {
             print("⚠️ WARNING: could not load Weather Locations from UserDefaults. This will always happen the first time the app is installed and run, so we can ignore this error...")
             
             // TODO: Get User Location for first element in the weatherLocations array
-            weatherLocations.append(WeatherLocation(name: "Current Location", latitude: 0.0, longtitude: 0.0))
+            weatherLocations.append(WeatherLocation(name: "", latitude: 0.0, longtitude: 0.0))
             return
             
         }

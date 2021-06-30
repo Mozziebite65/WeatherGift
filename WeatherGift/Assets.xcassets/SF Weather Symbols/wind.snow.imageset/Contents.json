@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "wind.snow@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "wind.snow@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

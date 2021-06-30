@@ -62,5 +62,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app is reeeeallly nosey 🤥, and wants to know your location in order to display the local weather. </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app is reeeeallly nosey 🤥, and wants to know your location in order to display the local weather. </string>
 </dict>
 </plist>

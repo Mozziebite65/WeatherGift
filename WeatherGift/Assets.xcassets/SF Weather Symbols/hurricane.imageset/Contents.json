@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "hurricane@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hurricane@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

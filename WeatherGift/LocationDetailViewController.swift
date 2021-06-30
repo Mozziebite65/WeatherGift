@@ -6,6 +6,7 @@
 //  Created by Rick Martin on 11/06/2021.
 //
 import UIKit
+import CoreLocation
 
 // The dateFormatter() call is expensive, so we just want to make it once, outside the class
 // Doing this OUTSIDE the class definition creates an instance that persists between creation and destruction of instances of the class itself.
@@ -42,10 +43,20 @@ class LocationDetailViewController: UIViewController {
     var weatherDetail: WeatherDetail!
     var rowHeight: CGFloat = 80
     var locationIndex = 0
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+
+        // This code was in viewDIDLOAD - it's better in here...
         
         // Clear out the dummy data
         clearUserInterface()
@@ -58,9 +69,17 @@ class LocationDetailViewController: UIViewController {
         collectionview.dataSource = self
         collectionview.delegate = self
         
+        // Get the location of the user - only do this when we're at locationIndex = 0 (the first page when the app loads)
+        if locationIndex == 0 {
+            
+            getLocation()
+            
+        }
+        
         updateUserInterface()
         
     }
+    
     
     func updateUserInterface() {
         
@@ -133,10 +152,15 @@ class LocationDetailViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        // Pass the data array into the list view controller
-        let destinationVC = segue.destination as! LocationListViewController
-        let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
-        destinationVC.weatherLocations = pageViewController.weatherLocations
+        if segue.identifier == "ShowList" {
+            
+            // Pass the data array into the list view controller
+            let destinationVC = segue.destination as! LocationListViewController
+            let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+            destinationVC.weatherLocations = pageViewController.weatherLocations
+            
+        }
+        
         
     }
     
@@ -179,9 +203,8 @@ class LocationDetailViewController: UIViewController {
     }
     
 }
-
-//extension LocationDetailViewController: UITableViewDataSource, UITableViewDelegate, DailyTableViewCellDelegate {
     
+
 extension LocationDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,4 +262,128 @@ extension LocationDetailViewController: UICollectionViewDataSource, UICollection
         
     }
     
+}
+
+// Location management extensions...
+
+extension LocationDetailViewController: CLLocationManagerDelegate {
+    
+    // Programmer defined functions
+    func getLocation() {
+        
+        // Creating a CLLocationManager object will automatically check the authorization given by the user, using the didChangeAuthorization function below...
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        
+    }
+    
+    func handleAuthorizationStatus(status: CLAuthorizationStatus) {
+        
+        switch status {
+
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            oneButtonAlert(title: "Location Services Denied", message: "It may be that parental controls are restricting location use in this app.")
+        case .denied:
+            showAlertToPrivacySettings(title: "Location Services Denied", message: "Select 'Settings' below to enter device settings and enable Location Services for this app.")
+            break
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.requestLocation()
+        @unknown default:
+            print("😡 DEVELOPER ALERT: Unknown case of status in handleAuthorizationStatus\(status)")
+            
+        }
+        
+    }
+    
+    // Function to allow user to change their privacy settings
+    func showAlertToPrivacySettings(title: String, message: String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else {
+            
+            print("😡ERROR: Something went wrong getting the UIApplication.openSettingsURLString..")
+            return
+            
+        }
+        
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) in
+            
+            UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(settingsAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+
+    }
+    
+    
+    // Apple pre-designed functions
+    
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {      // this function definition differs from the Prof J version in ch6.19 (deprecated)
+//
+//        print("👮🏼‍♂️ Checking authorization status..")
+//        handleAuthorizationStatus(status: locationManager.authorizationStatus)
+//
+//    }
+    
+    // Deprecated version....
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        print("👮🏼‍♂️ Checking authorization status..")
+        //Call helper function above..
+        handleAuthorizationStatus(status: status)
+        
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        print("📍 Updating location...")
+        // The LAST location in the passed in "locations" array of CLLocations is typically the most accurate... apparently. 🤷🏻‍♂️
+        let currentLocation = locations.last ?? CLLocation()    // nil coalescing
+        
+        print("Current location is \(currentLocation.coordinate.latitude), \(currentLocation.coordinate.longitude)")
+        
+        let geoCoder = CLGeocoder()
+        
+        geoCoder.reverseGeocodeLocation(currentLocation) { (placemarks, error) in
+            
+            var locationName = ""
+            if placemarks != nil {
+                
+                // Get the first placemark
+                let placemark = placemarks?.last
+                
+                // assign placemark to locationName
+                locationName = placemark?.name ?? "Parts unknown"
+                
+            } else {
+                
+                print("😡 ERROR: Could not retrieve place.")
+                locationName = "Could not find location."
+                
+            }
+            print("📍📍 Location name = \(locationName)")
+            
+            // Update weatherLocations[0] with the current location so it can be used in updateUserInterface. getLocation() ONLY called when locationIndex == 0
+            let newCurrentLocation = WeatherLocation(name: locationName, latitude: currentLocation.coordinate.latitude, longtitude: currentLocation.coordinate.longitude)
+            let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+            pageViewController.weatherLocations[self.locationIndex] = newCurrentLocation
+            
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+        print("😡 ERROR: \(error.localizedDescription) Failed to get device location.")
+        
+    }
 }

@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "thermometer.sun.fill@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "thermometer.sun.fill@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

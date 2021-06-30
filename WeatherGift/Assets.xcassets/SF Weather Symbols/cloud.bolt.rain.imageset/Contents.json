@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "cloud.bolt.rain@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cloud.bolt.rain@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "sun.max.circle.fill@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sun.max.circle.fill@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

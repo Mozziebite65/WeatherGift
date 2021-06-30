@@ -38,7 +38,7 @@ class LocationListViewController: UIViewController {
         // Try to encode the array to a data object
         if let encodedData = try? encoder.encode(weatherLocations) {
             
-            // Here, we're not using the Dictionary URL method. Just writing to the UserDefaults ;ocation (easier for non-vital, non-sensitive info..)
+            // Here, we're not using the Dictionary URL method. Just writing to the UserDefaults location (easier for non-vital, non-sensitive info..)
             UserDefaults.standard.set(encodedData, forKey: "weatherLocations")
             
         } else {
@@ -97,7 +97,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = weatherLocations[indexPath.row].name
-        cell.detailTextLabel?.text = "Lat: \(weatherLocations[indexPath.row].latitude), Long: \(weatherLocations[indexPath.row].longtitude)"
+        //cell.detailTextLabel?.text = "Lat: \(weatherLocations[indexPath.row].latitude), Long: \(weatherLocations[indexPath.row].longtitude)"
         return cell
         
     }
@@ -127,6 +127,27 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         //saveData()
 
+    }
+    
+    // MARK: tableViewMethods to "freeze" the first cell (current location) in place
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        return (indexPath.row != 0 ? true : false)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        
+        return (indexPath.row != 0 ? true : false)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        
+        // Don't allow another row to be moved into position 0 - send it back to where it started!! ⛔️👮🏼‍♂️✋
+        return (proposedDestinationIndexPath.row == 0 ? sourceIndexPath : proposedDestinationIndexPath)
+        
     }
 
 }
